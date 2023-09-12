@@ -168,6 +168,8 @@ export const postEdit = async (req, res) => {
   const {
     session: { user: _id },
     body: { name, email, username, location },
+    file,
+    // uploadFiles 미들웨어가 postEdit 보다 먼저 실행되기 때문에 req.file에 접근 가능
   } = req;
   // const i = req.session.user.id
   // const { name, email, username, location } = req.body;
