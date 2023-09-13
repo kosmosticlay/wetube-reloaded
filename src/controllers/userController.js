@@ -176,7 +176,6 @@ export const postEdit = async (req, res) => {
     file,
     // uploadFiles 미들웨어가 postEdit 보다 먼저 실행되기 때문에 req.file에 접근 가능
   } = req;
-  console.log(req.session.user);
   // const i = req.session.user.id
   // const { name, email, username, location } = req.body;
 
@@ -205,20 +204,21 @@ export const postEdit = async (req, res) => {
           notifMessage: "This data is already taken",
         });
       }
-      // 사용자 정보 업데이트
-      const updatedUser = await User.findByIdAndUpdate(
-        _id,
-        {
-          avatarUrl: file ? file.path : avatarUrl,
-          name,
-          email,
-          username,
-          location,
-        },
-        { new: true }
-      );
-      req.session.user = updatedUser;
     }
+    // 사용자 정보 업데이트
+    const updatedUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        avatarUrl: file ? file.path : avatarUrl,
+        name,
+        email,
+        username,
+        location,
+      },
+      { new: true }
+    );
+    req.session.user = updatedUser;
+    console.log(req.file);
     return res.redirect("/users/edit");
   } catch (error) {
     console.error(error);
