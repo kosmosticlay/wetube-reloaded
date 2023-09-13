@@ -52,11 +52,15 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  const file = req.file;
+  console.log(file);
   const { title, description, hashtags } = req.body;
   try {
     await Video.create({
       title,
       description,
+      fileUrl: file.path,
+      // multer이 req.file을 제공
       /* createdAt: Date.now(), 모델 스키마에 default값 설정했으므로 삭제 */
       hashtags: Video.formatHashtags(hashtags),
       /* pre-middleware로 입력값 변환 설정으로 코드 삭제

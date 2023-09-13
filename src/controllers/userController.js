@@ -163,16 +163,20 @@ export const logout = (req, res) => {
 };
 
 export const getEdit = (req, res) => {
+  console.log(req.session.user);
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
 
 export const postEdit = async (req, res) => {
   const {
-    session: { user: _id, avatarUrl },
+    session: {
+      user: { _id, avatarUrl },
+    },
     body: { name, email, username, location },
     file,
     // uploadFiles 미들웨어가 postEdit 보다 먼저 실행되기 때문에 req.file에 접근 가능
   } = req;
+  console.log(req.session.user);
   // const i = req.session.user.id
   // const { name, email, username, location } = req.body;
 
