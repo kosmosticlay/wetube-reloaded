@@ -41,6 +41,7 @@ app.use((req, res, next) => {
 
 /* 생성한 라우터 인스턴스를 애플리케이션에 마운트 */
 app.use(localsMiddleware);
+app.use("/uploads", express.static("uploads"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);

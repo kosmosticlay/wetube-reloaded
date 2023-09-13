@@ -161,18 +161,21 @@ export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
+
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
+
 export const postEdit = async (req, res) => {
   const {
-    session: { user: _id },
+    session: { user: _id, avatarUrl },
     body: { name, email, username, location },
     file,
     // uploadFiles 미들웨어가 postEdit 보다 먼저 실행되기 때문에 req.file에 접근 가능
   } = req;
   // const i = req.session.user.id
   // const { name, email, username, location } = req.body;
+
   /* code challenge */
   try {
     const preUpdateUser = await User.findById(_id);
@@ -201,7 +204,13 @@ export const postEdit = async (req, res) => {
       // 사용자 정보 업데이트
       const updatedUser = await User.findByIdAndUpdate(
         _id,
-        { name, email, username, location },
+        {
+          avatarUrl: file ? file.path : avatarUrl,
+          name,
+          email,
+          username,
+          location,
+        },
         { new: true }
       );
       req.session.user = updatedUser;

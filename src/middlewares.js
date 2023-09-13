@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   // req.session.loggedIn이 undefined, null등 boolean이 아닐 가능성도 있기 때문
