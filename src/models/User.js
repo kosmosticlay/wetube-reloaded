@@ -13,9 +13,10 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function () {
-  this.password = await bcrypt.hash(this.password, 5);
+  if (this.isModified("password"))
+    this.password = await bcrypt.hash(this.password, 5);
 });
-// this는 생성된 User을 의미 / 5는 '해싱되는 횟수'를 의미
+// this는 생성된 user을 의미 / 5는 '해싱되는 횟수'를 의미
 // pre-middleware는 model이 생성되기 전에 실행
 
 const User = mongoose.model("User", userSchema);
