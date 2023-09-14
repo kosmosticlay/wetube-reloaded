@@ -275,5 +275,6 @@ export const see = async (req, res) => {
   return res.render("users/profile", {
     user,
     pageTitle: user.name,
+    videos,
   });
 };
