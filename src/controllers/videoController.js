@@ -60,7 +60,7 @@ export const postUpload = async (req, res) => {
   const { path: fileUrl } = req.file;
   const { title, description, hashtags } = req.body;
   try {
-    await Video.create({
+    const newVideo = await Video.create({
       title,
       description,
       fileUrl,
@@ -75,6 +75,9 @@ export const postUpload = async (req, res) => {
         rating: 0,
       }, default값 설정으로 인해 코드 삭제*/
     });
+    const user = await User.findById(_id);
+    user.videos.push(newVideo.id);
+    user.save();
     return res.redirect("/");
   } catch (error) {
     console.log(error);
