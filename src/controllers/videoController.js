@@ -1,14 +1,16 @@
 /* Video Model 연결 */
 import Video from "../models/Video";
+import User from "../models/User";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
   return res.render("home", { pageTitle: "Home", videos });
   // home.pug에 each video in videos때문에 videos 전달해야함
 };
+
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id);
+  const video = await Video.findById(id).populate("owner");
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
@@ -52,15 +54,18 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
-  const file = req.file;
-  console.log(file);
+  const {
+    user: { _id },
+  } = req.session;
+  const { path: fileUrl } = req.file;
   const { title, description, hashtags } = req.body;
   try {
     await Video.create({
       title,
       description,
-      fileUrl: file.path,
+      fileUrl,
       // multer이 req.file을 제공
+      owner: _id,
       /* createdAt: Date.now(), 모델 스키마에 default값 설정했으므로 삭제 */
       hashtags: Video.formatHashtags(hashtags),
       /* pre-middleware로 입력값 변환 설정으로 코드 삭제
@@ -72,6 +77,7 @@ export const postUpload = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
+    console.log(error);
     return res.status(400).render("upload", {
       pageTitle: "Upload video",
       errorMessage: error._message,
