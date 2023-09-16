@@ -74,6 +74,7 @@ const handleTimelineChange = (event) => {
 
 const handleFullscreen = () => {
   const fullscreen = document.fullscreenElement;
+  console.log(Boolean(fullscreen));
   if (fullscreen) {
     document.exitFullscreen();
     fullScreenIcon.classList = "fas fa-expand";
@@ -105,7 +106,7 @@ const handleMouseLeave = () => {
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
-video.addEventListener("loadeddata", handleLoadedMetadata);
+video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
