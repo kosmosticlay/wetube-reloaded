@@ -16,6 +16,7 @@ export const protectorMiddleware = (req, res, next) => {
     // loggedIn은 유저가 로그인할 때 session에 저장되는 정보
     // 즉, session에 저장되어 있기 때문에 controller/middleware 모두 접근 가능
   } else {
+    req.flash("error", "Log in first");
     return res.redirect("/login");
   }
 };
@@ -25,6 +26,7 @@ export const publicOnlyMiddleware = (req, res, next) => {
   if (!req.session.loggedIn) {
     return next();
   } else {
+    req.flash("error", "Not Authorized");
     return res.redirect("/");
   }
 };
