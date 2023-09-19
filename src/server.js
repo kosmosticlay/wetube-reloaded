@@ -20,6 +20,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 /* express app이 form 데이터를 처리할 수 있게 설정 */
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 /* express-session 미들웨어를 router 인스턴스를 마운트 하기 전에 초기화 */
 /* 아래 session이라는 미들웨어가 브라우저에 cookie를 전송, 백엔드에 request를 
