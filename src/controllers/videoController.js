@@ -1,6 +1,7 @@
 /* Video Model 연결 */
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
@@ -150,9 +151,22 @@ export const registerView = async (req, res) => {
   return res.sendStatus(200);
 };
 
-export const createComment = (req, res) => {
-  console.log(req.params);
-  console.log(req.body);
-  console.log(req.body.text, req.body.rating);
-  return res.end();
+export const createComment = async (req, res) => {
+  const {
+    session: { user }, // req.session.user
+    body: { text }, // req.body.text
+    params: { id }, // req.params.id
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  const comment = await Comment.create({
+    text,
+    owner: user._id,
+    video: id,
+  });
+  video.comments.push(comment._id); // video가 해당 댓글을 갖게 된 상태로 업데이트된다(video.comments)
+  video.save();
+  return res.status(201).json({ newCommentId: comment._id });
 };
