@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "The best way to watch videos.",
   "scripts": {
-    "dev": "nodemon",
-    "assets": "webpack"
+    "start": "node build/init.js",
+    "build:server": "babel src -d build",
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "author": "Hyemin",
   "license": "ISC",
@@ -28,8 +30,8 @@
     "regenerator-runtime": "^0.14.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.10",
-    "@babel/core": "^7.22.10",
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
     "@babel/node": "^7.22.10",
     "@babel/preset-env": "^7.22.10",
     "babel-loader": "^9.1.3",
