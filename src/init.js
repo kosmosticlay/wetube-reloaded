@@ -7,7 +7,8 @@ import "./models/User";
 import "./models/Comment";
 import app from "./server";
 
-const PORT = 4000;
+const PORT = process.env.PORT;
+// const PORT = 4000;
 
 /* application 작동 */
 const handleListening = () =>
