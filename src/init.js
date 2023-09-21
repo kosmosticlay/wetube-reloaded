@@ -7,7 +7,7 @@ import "./models/User";
 import "./models/Comment";
 import app from "./server";
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 // const PORT = 4000;
 
 /* application 작동 */
