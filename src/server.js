@@ -45,7 +45,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'none'; font-src 'self' data:;"
+    "default-src 'self'; font-src 'self' data: cdnjs.cloudflare.com; img-src 'self' wetube-komo-5211c933298d.herokuapp.com; script-src 'self' kit.fontawesome.com; style-src 'self' cdnjs.cloudflare.com;"
   );
   next();
 });
