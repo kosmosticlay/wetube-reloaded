@@ -42,6 +42,14 @@ app.use((req, res, next) => {
   });
 });
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'none'; font-src 'self' data:;"
+  );
+  next();
+});
+
 /* 생성한 라우터 인스턴스를 애플리케이션에 마운트 */
 app.use(flash());
 app.use(localsMiddleware);
