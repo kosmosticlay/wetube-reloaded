@@ -11,7 +11,11 @@ const PORT = process.env.PORT || 4000;
 // const PORT = 4000;
 
 /* application 작동 */
-const handleListening = () =>
-  console.log(`⭕Server listening on port http://localhost:${PORT}`);
+const handleListening =
+  (PORT,
+  "0,0,0,0",
+  () => {
+    console.log(`⭕Server listening on port http://localhost:${PORT}`);
+  });
 
 app.listen(PORT, handleListening);
