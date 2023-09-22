@@ -85,8 +85,9 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].path,
-      thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
+      fileUrl: video[0].location,
+      thumbUrl: thumb[0].location,
+      // thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
       // multer이 req.file을 제공
       // createdAt: Date.now(), 모델 스키마에 default값 설정했으므로 삭제
       owner: _id,

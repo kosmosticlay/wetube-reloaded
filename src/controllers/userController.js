@@ -205,10 +205,11 @@ export const postEdit = async (req, res) => {
       }
     }
     // 사용자 정보 업데이트
+    console.log(file);
     const updatedUser = await User.findByIdAndUpdate(
       _id,
       {
-        avatarUrl: file ? file.path : avatarUrl,
+        avatarUrl: file ? file.location : avatarUrl,
         name,
         email,
         username,
@@ -217,7 +218,6 @@ export const postEdit = async (req, res) => {
       { new: true }
     );
     req.session.user = updatedUser;
-    console.log(req.file);
     return res.redirect("/users/edit");
   } catch (error) {
     console.error(error);
