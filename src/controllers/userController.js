@@ -134,7 +134,6 @@ export const finishGithubLogin = async (req, res) => {
       return res.redirect("/login");
     }
     let user = await User.findOne({ email: emailObj.email });
-    console.log(user);
     if (!user) {
       /* 해당 email로 된 user가 없으므로 새 계정을 생성; user을 새로 정의 */
       user = await User.create({
@@ -158,8 +157,8 @@ export const finishGithubLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  req.session.destroy();
   req.flash("info", "Bye Bye👋");
+  req.session.destroy();
   return res.redirect("/");
 };
 
