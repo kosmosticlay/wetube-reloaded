@@ -12,7 +12,7 @@ const s3 = new S3Client({
 
 const s3Uploader = multerS3({
   s3: s3,
-  bucket: "wetubekomo/images",
+  bucket: "wetubekomo",
   acl: "public-read",
 });
 
