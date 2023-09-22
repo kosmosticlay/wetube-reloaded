@@ -99,6 +99,7 @@ export const postUpload = async (req, res) => {
          rating: 0,
       }, default값 설정으로 인해 코드 삭제*/
     });
+    console.log(video.fileUrl);
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
     user.save();
