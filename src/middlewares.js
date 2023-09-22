@@ -10,9 +10,17 @@ const s3 = new S3Client({
   },
 });
 
-const multerUploader = multerS3({
+const isCloudType = process.env.NODE_ENV === "production";
+
+const s3ImageUploader = multerS3({
   s3: s3,
-  bucket: "wetubekomo",
+  bucket: "wetubekomo/images",
+  acl: "public-read",
+});
+
+const s3VideoUploader = multerS3({
+  s3: s3,
+  bucket: "wetubekomo/videos",
   acl: "public-read",
 });
 
@@ -53,11 +61,11 @@ export const avatarUpload = multer({
   limits: {
     fileSize: 3000000, // 3MB 이하
   },
-  storage: multerUploader,
+  storage: isCloudType ? s3ImageUploader : undefined,
 });
 
 export const videoUpload = multer({
   dest: "uploads/videos/",
   limits: { fileSize: 10000000 }, // 10MB 이하
-  storage: multerUploader,
+  storage: isCloudType ? s3VideoUploader : undefined,
 });
