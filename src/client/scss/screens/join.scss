@@ -1,5 +1,29 @@
-.backgroundWrap img {
+/* 1920*1080 */
+@media (min-width: 1440.99px) {
+  .backgroundWrap {
+    background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/4e1c3401-a4a9-4bb2-b67f-995f308b5709/image.png);
+  }
+}
+
+/* 1440*900 */
+@media (min-width: 1366.99px) and (max-width: 1440px) {
+  .backgroundWrap {
+    background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/a5b29ac4-af77-494c-918e-330c16298cdb/image.png);
+  }
+}
+
+/* 1366*768 */
+@media (max-width: 1366px) {
+  .backgroundWrap {
+    background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/996b5a0b-80d9-4724-bf40-8312d47cf65f/image.png);
+  }
+}
+
+.backgroundWrap {
   width: 100%;
   height: 100vh;
-  background-color: wheat;
+  background-position: center calc(100% + 50px);
+  background-repeat: repeat;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
