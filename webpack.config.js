@@ -24,6 +24,7 @@ module.exports = {
     filename: "js/[name].js",
     path: path.resolve(__dirname, "assets"),
     clean: true,
+    publicPath: "/assets/",
   },
   module: {
     rules: [
