@@ -1,0 +1,61 @@
+include mixins/message
+
+doctype html
+html(lang="ko")
+    head
+        title #{pageTitle} | NOMAD CITY BAR
+        link(rel="stylesheet", href="/static/css/styles.css")
+    body
+        if messages.error
+            +message("error", messages.error)
+        if messages.info 
+            +message("info", messages.info)
+        if messages.success
+            +message("success", messages.success)
+        // include partials/page-header
+        main
+            div.profileWrap
+                div.page-sidebar
+                    i.fa-solid.fa-bars
+                    ul.page-sidebar__btnList
+                        li
+                            a(href="/") 
+                                i.fa-solid.fa-house
+                        if loggedIn 
+                            li
+                                a(href=`/users/${loggedInUser._id}`)  
+                                    i.fa-solid.fa-user
+                        li
+                            a(href="/search")  
+                                i.fa-solid.fa-magnifying-glass
+                        li
+                            a(href="/users/logout")  
+                                i.fa-solid.fa-arrow-right-from-bracket
+                div.page-content
+                    div.page-content__header
+                        div.page-logo NOMAD CITY BAR
+                        div.page-greeting
+                            if loggedIn 
+                                span 👋 Hello, #{loggedInUser.name}!
+                            else 
+                                span 👋 Hello, my stranger!
+                    block content
+                        div.page-content__main__profile
+                            if loggedIn
+                                div.profile__username 
+                                    span My Profile
+                                    a(href=`/users/edit`) 
+                                        i.fa-solid.fa-pen
+                            else
+                                span.profile__username #{user.name}'s Profile
+                            img(src="/" + user.avatarUrl).profile__frame
+                            span @#{user.username}
+                        div.page-content__user-videos
+                            if loggedIn
+                                span My videos
+                            else
+                                span #{user.name}'s videos
+                            div.page-content__user-videosList
+    script(src="https://kit.fontawesome.com/3e809e2e54.js" crossorigin="anonymous")
+    script(src="/static/js/main.js")
+    block scripts

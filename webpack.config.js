@@ -10,7 +10,7 @@ module.exports = {
     recorder: BASE_JS + "recorder.js",
     commentSection: BASE_JS + "commentSection.js",
     home: BASE_JS + "home.js",
-    profile: BASE_JS + "profile.js",
+    editProfile: BASE_JS + "editProfile.js",
   },
   stats: {
     errorDetails: true,

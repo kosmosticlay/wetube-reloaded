@@ -1,13 +1,7 @@
-extends base.pug
+extends page-base
 include mixins/video
 
-block content 
-    form(method="GET").search__form
-        input(placeholder="Search by title", name="keyword" type="text")
-        button
-            i.fas.fa-search
-    div.video-grid
-        each video in videos 
-            +video(video)
-        else
-            span.empty__message No videos found
+block content
+    div.page-content__main
+        div.profile__userTitle.changePassword__title
+            span SEARCH
