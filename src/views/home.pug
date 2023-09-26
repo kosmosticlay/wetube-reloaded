@@ -2,9 +2,69 @@ extends base
 include mixins/video
 
 block content
-    div.video-grid
-        each video in videos
-            +video(video)
-
-        else
-            span.empty__message No videos found
+    div.homeWrap
+        header.home-headerWrap
+            div.sideBtn
+                img(src="https://velog.velcdn.com/images/kosmosticlay/post/0a6e825e-98b1-4702-8209-991d82365adc/image.gif")
+            div.main-title.glow
+                span N
+                span O
+                span M
+                span A
+                span D
+                span 
+                span C
+                span i
+                span t
+                span y
+                span 
+                span B
+                span a
+                span r
+            if loggedIn
+                div.headerBtnList
+                    a(class="headerBtn header-logout" href="/users/logout")
+                        span Log out
+                        i.fa-solid.fa-angles-right
+                    a(class="headerBtn__header-avatar" href=`/users/${loggedInUser._id}`)
+                        if loggedInUser.avatarUrl === ""
+                            span 😀
+                        else
+                            if loggedInUser && loggedInUser.avatarUrl
+                                if loggedInUser.avatarUrl.includes("github")
+                                    img.header__avatar(src=loggedInUser.avatarUrl)
+                                else 
+                                    img.header__avatar(src=loggedInUser.avatarUrl) 
+            else
+                div.headerBtnList
+                    div.headerBtn.header-login
+                        span Log In 
+                        i.fa-solid.fa-angles-right
+                    div.headerBtn.header-join
+                        span Join
+                        i.fa-solid.fa-angles-right
+        div.contentWrap
+            div.home-sideBar
+                div.home-sideBar__banner
+                ul.home-sideBar__menu
+                    li.menuBtn
+                        a(href="/") HOME
+                    if loggedIn
+                        li.menuBtn
+                            a(href=`/users/${loggedInUser._id}`) PROFILE
+                    if loggedIn
+                        li.menuBtn
+                            a(href="/videos/upload") UPLOAD VIDEO
+                    li.menuBtn
+                        a(href="/search") SEARCH
+                    if loggedIn
+                        a(class="home-sideBar__logoutBtn" href="/users/logout") 
+                            i.fa-solid.fa-arrow-right-from-bracket
+                            span Log out
+            div.video-grid
+                each video in videos
+                    +video(video)
+                else
+                    span.empty__message No videos found
+block scripts 
+    script(src="/static/js/home.js")
