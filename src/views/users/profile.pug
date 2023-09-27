@@ -11,7 +11,10 @@ block content
                         i.fa-solid.fa-pen
             else
                 span.profile__username #{user.name}'s Profile
-            img(src="/" + user.avatarUrl).profile__frame
+            if (!isProduction)
+                img(src="/" + user.avatarUrl crossorigin).profile__frame
+            else
+                img(src=user.avatarUrl crossorigin).profile__frame
             span @#{user.username}
         div.page-content__user-videos
             if loggedIn
