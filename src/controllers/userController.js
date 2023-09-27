@@ -264,6 +264,7 @@ export const postChangePassword = async (req, res) => {
 };
 
 export const see = async (req, res) => {
+  const isHosting = process.env.NODE_ENV === "production";
   const { id } = req.params;
   const user = await User.findById(id).populate({
     path: "videos",
@@ -278,5 +279,6 @@ export const see = async (req, res) => {
   return res.render("users/profile", {
     pageTitle: user.name,
     user,
+    isHosting,
   });
 };

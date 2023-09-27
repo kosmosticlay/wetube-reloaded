@@ -11,7 +11,7 @@ block content
                         i.fa-solid.fa-pen
             else
                 div.profile__userTitle #{user.name}'s Profile
-            if (!isProduction)
+            if (!isHosting)
                 img(src="/" + user.avatarUrl crossorigin).profile__frame
             else
                 img(src=user.avatarUrl crossorigin).profile__frame
