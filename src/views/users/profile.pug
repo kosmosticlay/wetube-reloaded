@@ -10,7 +10,7 @@ block content
                     a(href=`/users/edit`) 
                         i.fa-solid.fa-pen
             else
-                span.profile__username #{user.name}'s Profile
+                div.profile__userTitle #{user.name}'s Profile
             if (!isProduction)
                 img(src="/" + user.avatarUrl crossorigin).profile__frame
             else

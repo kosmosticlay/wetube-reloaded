@@ -27,14 +27,11 @@ block content
                         span Log out
                         i.fa-solid.fa-angles-right
                     a(class="headerBtn__header-avatar" href=`/users/${loggedInUser._id}`)
-                        if loggedInUser.avatarUrl === ""
-                            span 😀
-                        else
-                            if loggedInUser && loggedInUser.avatarUrl
-                                if loggedInUser.avatarUrl.includes("github")
-                                    img.header__avatar(src=loggedInUser.avatarUrl)
-                                else 
-                                    img.header__avatar(src=loggedInUser.avatarUrl) 
+                        if loggedInUser
+                            if user.avatarUrl.includes("uploads/avatars/")
+                                img(src=`/${user.avatarUrl}`)
+                            else if user.avatarUrl
+                                img(src=`${user.avatarUrl}`)
             else
                 div.headerBtnList
                     div.headerBtn.header-login
