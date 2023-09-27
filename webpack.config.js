@@ -11,6 +11,8 @@ module.exports = {
     commentSection: BASE_JS + "commentSection.js",
     home: BASE_JS + "home.js",
     editProfile: BASE_JS + "editProfile.js",
+    search: BASE_JS + "search.js",
+    videoGrid: BASE_JS + "videoGrid.js",
   },
   stats: {
     errorDetails: true,

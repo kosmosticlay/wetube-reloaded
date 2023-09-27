@@ -61,10 +61,12 @@ block content
                         a(class="home-sideBar__logoutBtn" href="/users/logout") 
                             i.fa-solid.fa-arrow-right-from-bracket
                             span Log out
-            div.video-grid
+            div.video-grid.home__video-grid
                 each video in videos
                     +video(video)
                 else
                     span.empty__message No videos found
+            i.fa-solid.fa-chevron-down.scrollDown-arrow
 block scripts 
     script(src="/static/js/home.js")
+    script(src="/static/js/videoGrid.js")

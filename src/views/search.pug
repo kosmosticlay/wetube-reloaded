@@ -2,6 +2,18 @@ extends page-base
 include mixins/video
 
 block content
-    div.page-content__main
+    div.page-content__main.detail-page__main
         div.profile__userTitle.changePassword__title
             span SEARCH
+        form(method="GET" action="/search" id="search")
+            input(placeholder="Search by Liquor name", name="keyword", type="text", required, maxlength="30")
+            button.fa-solid.fa-magnifying-glass(type="submit")
+        div.page-content__user-videos
+            div.video-grid.search__video-grid
+                each video in videos
+                    +video(video)
+                else
+                    span.empty__message No videos found
+block scripts 
+    script(src="/static/js/search.js")
+    script(src="/static/js/videoGrid.js")

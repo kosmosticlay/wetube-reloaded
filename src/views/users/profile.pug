@@ -18,4 +18,11 @@ block content
                 span My videos
             else
                 span #{user.name}'s videos
-            div.page-content__user-videosList
+        div.video-grid.profile__video-grid
+            div.video-grid
+                each video in user.videos 
+                    +video(video)
+                else
+                    span.empty__message No videos found
+block scripts 
+    script(src="/static/js/videoGrid.js")

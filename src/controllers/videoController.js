@@ -76,6 +76,7 @@ export const getUpload = (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
+  const isHosting = process.env.NODE_ENV === "production";
   const {
     user: { _id },
   } = req.session;
@@ -85,8 +86,12 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].location,
-      thumbUrl: thumb[0].location,
+      fileUrl: isHosting
+        ? video[0].location
+        : video[0].path.replace(/[\\]/g, "/"),
+      thumbUrl: isHosting
+        ? thumb[0].location
+        : thumb[0].path.replace(/[\\]/g, "/"),
       // thumbUrl: thumb[0].path.replace(/[\\]/g, "/"),
       // multer이 req.file을 제공
       // createdAt: Date.now(), 모델 스키마에 default값 설정했으므로 삭제
@@ -134,10 +139,14 @@ export const search = async (req, res) => {
   let videos = [];
   if (keyword) {
     videos = await Video.find({
-      title: {
-        $regex: new RegExp(`${keyword}$`, "i"),
-      },
-    }).populate("owner");
+      $or: [
+        { title: { $regex: new RegExp(keyword, "i") } },
+        { desc: { $regex: new RegExp(keyword, "i") } },
+        { hashtags: { $regex: new RegExp(keyword, "i") } },
+      ],
+    })
+      .sort({ createdAt: "desc" })
+      .populate("owner");
   } // let으로 선언한 videos obj를 업데이트만 해주면 된다.
   return res.render("search", { pageTitle: "Search", videos });
 };
