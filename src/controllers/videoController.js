@@ -13,7 +13,18 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id)
+    .populate("owner")
+    .populate("comments")
+    .populate({
+      path: "comments",
+      populate: {
+        path: "owner",
+        populate: {
+          path: "username",
+        },
+      },
+    });
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
@@ -172,14 +183,24 @@ export const createComment = async (req, res) => {
   if (!video) {
     return res.sendStatus(404);
   }
+  const userObj = await User.findById(user._id);
+  if (!userObj) {
+    return res.sendStatus(404);
+  }
   const comment = await Comment.create({
     text,
     owner: user._id,
     video: id,
   });
   video.comments.push(comment._id); // video가 해당 댓글을 갖게 된 상태로 업데이트된다(video.comments)
-  video.save();
-  return res.status(201).json({ newCommentId: comment._id });
+  await video.save();
+  userObj.comments.push(comment._id);
+  await userObj.save();
+  return res.status(201).json({
+    newCommentId: comment._id,
+    userId: userObj.username,
+    userAvatarUrl: userObj.avatarUrl,
+  });
 };
 
 export const removeComment = async (req, res) => {
