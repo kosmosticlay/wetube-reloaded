@@ -11,14 +11,10 @@ const addComment = (text, id) => {
   const commentUser = document.createElement("a");
   commentUser.className = "uploaderAvatarBtn";
 
-  // Create an img element
   const avatarImg = document.createElement("img");
-
-  // Get the avatar URL from the form element and set the src attribute on the img element
   const avatarUrl = form.getAttribute("data-avatar-url");
-  avatarImg.setAttribute("src", avatarUrl);
 
-  // Append the img element to the commentUser element
+  avatarImg.setAttribute("src", avatarUrl);
   commentUser.appendChild(avatarImg);
 
   const span = document.createElement("span");
@@ -31,6 +27,7 @@ const addComment = (text, id) => {
   newComment.appendChild(span);
   newComment.appendChild(deleteIcon);
   videoComments.prepend(newComment);
+  console.log(avatarUrl);
 };
 
 const handleSubmit = async (event) => {
