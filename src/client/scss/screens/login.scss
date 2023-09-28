@@ -19,7 +19,7 @@
   }
 }
 
-.joinWrap {
+.loginWrap {
   width: 100%;
   height: 100vh;
   background-position: center calc(100% + 70px);
@@ -38,11 +38,11 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 30px;
   position: absolute;
   top: 20%;
   left: 50%;
   transform: translate(-50%, -20%);
+  box-shadow: 0 0 10px #37c6da;
 }
 
 #login-form input:not([type="submit"]) {
