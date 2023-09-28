@@ -181,3 +181,39 @@ export const createComment = async (req, res) => {
   video.save();
   return res.status(201).json({ newCommentId: comment._id });
 };
+
+export const removeComment = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const comment = await Comment.findById(id);
+  const commentUser = await User.findById(comment.owner._id);
+  const relatedVideo = await Video.findById(comment.video._id);
+  if (!comment) {
+    req.flash("error", "Comment not found.");
+    return res.sendStatus(400);
+  }
+  if (!commentUser) {
+    req.flash("error", "User not found.");
+    return res.sendStatus(400);
+  }
+  if (!relatedVideo) {
+    req.flash("error", "Video not found.");
+    return res.sendStatus(400);
+  }
+  try {
+    relatedVideo.comments = relatedVideo.comments.filter(
+      (item) => String(comment._id) !== String(item)
+    );
+    commentUser.comments = commentUser.comments.filter(
+      (item) => String(comment._id) !== String(item)
+    );
+    await Comment.findByIdAndDelete(id);
+    await relatedVideo.save();
+    await commentUser.save();
+    return res.sendStatus(201);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};

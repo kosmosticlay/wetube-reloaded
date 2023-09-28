@@ -64,7 +64,7 @@ const handleCommentRemove = async (event) => {
   const deleteCommentBtn = event.target;
   const comment = deleteCommentBtn.closest("[data-id]");
   const commentId = comment.dataset.id;
-  const response = await fetch(`/api/comments/${commentId}`, {
+  const response = await fetch(`/api/comments/${commentId}/delete`, {
     method: "DELETE",
   });
   if (response.status === 201) {

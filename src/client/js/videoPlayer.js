@@ -132,7 +132,7 @@ const handleEnded = () => {
   // fetch()는 get 요청을 보내는 것
 };
 
-videoCreatedAt.innerText = videoCreatedAt.innerText.substring(0, 16);
+videoCreatedAt.innerText = videoCreatedAt.innerText.substring(0, 18);
 
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
