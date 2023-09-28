@@ -148,7 +148,7 @@
 }
 
 .video-grid.profile__video-grid {
-  width: 100%;
+  width: calc(100% - 330px);
   height: 220px;
   top: 450px;
   overflow: scroll;

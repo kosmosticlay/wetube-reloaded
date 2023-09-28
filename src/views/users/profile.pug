@@ -11,21 +11,22 @@ block content
                         i.fa-solid.fa-pen
             else
                 div.profile__userTitle #{user.name}'s Profile
-            if (!isHosting)
-                img(src="/" + user.avatarUrl crossorigin).profile__frame
-            else
-                img(src=user.avatarUrl crossorigin).profile__frame
+            if loggedInUser
+                if loggedInUser.avatarUrl.includes("uploads/avatars/")
+                    img(src=`/${loggedInUser.avatarUrl}`).profile__frame
+                else if loggedInUser.avatarUrl
+                    img(src=`${loggedInUser.avatarUrl}`).profile__frame
             span @#{user.username}
         div.page-content__user-videos
             if loggedIn
                 span My videos
             else
                 span #{user.name}'s videos
-        div.video-grid.profile__video-grid
-            div.video-grid
+            div.video-grid.profile__video-grid
                 each video in user.videos 
                     +video(video)
                 else
                     span.empty__message No videos found
 block scripts 
     script(src="/static/js/videoGrid.js")
+    script(src="/static/js/pageBase.js")

@@ -13,6 +13,7 @@ module.exports = {
     editProfile: BASE_JS + "editProfile.js",
     search: BASE_JS + "search.js",
     videoGrid: BASE_JS + "videoGrid.js",
+    pageBase: BASE_JS + "pageBase.js",
   },
   stats: {
     errorDetails: true,

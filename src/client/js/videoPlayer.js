@@ -10,12 +10,12 @@ const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
-const videoControls = document.getElementById("videoControls");
+const videoControls = document.querySelector(".videoControls");
 
-let controlsTimeout = null;
-let controlsMovementTimeout = null;
 let volumeValue = 0.5;
 video.volume = volumeValue;
+let controlsTimeout = null;
+let controlsMovementTimeout = null;
 
 const handlePlayClick = () => {
   if (video.paused) {
@@ -110,14 +110,46 @@ const handleEnded = () => {
   });
   // fetch()는 get 요청을 보내는 것
 };
+/* shorcut keys */
 
-playBtn.addEventListener("click", handlePlayClick);
-muteBtn.addEventListener("click", handleMuteClick);
-volumeRange.addEventListener("input", handleVolumeChange);
+const shortcutKeys = (event) => {
+  if (event.key === " ") {
+    handlePlayAndStop();
+  }
+  if (event.key === ("m" || "M")) {
+    if (video.muted) {
+      video.muted = false;
+    } else {
+      video.muted = true;
+    }
+    volumeBtn.classList = video.muted
+      ? "fas fa-volume-mute"
+      : "fas fa-volume-up";
+    volumeRange.value = video.muted ? 0 : volumeValue;
+  }
+  if (event.key === "ArrowLeft") {
+    video.currentTime -= 5;
+  }
+  if (event.key === "ArrowRight") {
+    video.currentTime += 5;
+  }
+  if (event.key === ("f" || "F")) {
+    screenExpand();
+  }
+  if (event.key === "escape") {
+    screenShrink();
+  }
+  event.preventDefault();
+};
+
+window.addEventListener("keydown", shortcutKeys);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+playBtn.addEventListener("click", handlePlayClick);
+muteBtn.addEventListener("click", handleMuteClick);
+volumeRange.addEventListener("input", handleVolumeChange);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
