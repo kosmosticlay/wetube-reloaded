@@ -1,6 +1,8 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
-const playBtnIcon = playBtn.querySelector("i");
+const playBtnIcon = playBtn.querySelector(".fa-play");
+const backwardBtnIcon = playBtn.querySelector(".fa-backward");
+const forwardBtnIcon = playBtn.querySelector(".fa-forward");
 const muteBtn = document.getElementById("mute");
 const muteBtnIcon = muteBtn.querySelector("i");
 const volumeRange = document.getElementById("volume");
@@ -10,7 +12,9 @@ const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
+const videoWrap = document.querySelector(".videoContainer__video-screen");
 const videoControls = document.querySelector(".videoControls");
+const videoCreatedAt = document.querySelector(".video-uploadDate");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
@@ -26,6 +30,14 @@ const handlePlayClick = () => {
   playBtnIcon.classList = video.paused
     ? "fa-solid fa-play"
     : "fa-solid fa-pause";
+};
+
+const handleBackwardClick = () => {
+  video.currentTime -= 5;
+};
+
+const handleForwardClick = () => {
+  video.currentTime += 5;
 };
 
 const handleMuteClick = () => {
@@ -74,13 +86,22 @@ const handleTimelineChange = (event) => {
 
 const handleFullscreen = () => {
   const fullscreen = document.fullscreenElement;
+  const controlsIcon = videoControls.querySelectorAll("i");
   console.log(Boolean(fullscreen));
   if (fullscreen) {
     document.exitFullscreen();
     fullScreenIcon.classList = "fas fa-expand";
+    videoControls.style.width = "90%";
+    videoControls.style.height = "10%";
+    videoControls.style.padding = "0 15px";
+    videoControls.style.fontSize = "15px";
   } else {
-    videoContainer.requestFullscreen();
+    videoWrap.requestFullscreen();
     fullScreenIcon.classList = "fas fa-compress";
+    videoControls.style.width = "70%";
+    videoControls.style.height = "60px";
+    videoControls.style.padding = "0 25px";
+    videoControls.style.fontSize = "23px";
   }
 };
 
@@ -96,7 +117,7 @@ const handleMouseMove = () => {
     controlsMovementTimeout = null;
   }
   videoControls.classList.add("showing");
-  controlsMovementTimeout = setTimeout(hideControls, 3000);
+  controlsMovementTimeout = setTimeout(hideControls, 2000);
 };
 
 const handleMouseLeave = () => {
@@ -110,46 +131,18 @@ const handleEnded = () => {
   });
   // fetch()는 get 요청을 보내는 것
 };
-/* shorcut keys */
 
-const shortcutKeys = (event) => {
-  if (event.key === " ") {
-    handlePlayAndStop();
-  }
-  if (event.key === ("m" || "M")) {
-    if (video.muted) {
-      video.muted = false;
-    } else {
-      video.muted = true;
-    }
-    volumeBtn.classList = video.muted
-      ? "fas fa-volume-mute"
-      : "fas fa-volume-up";
-    volumeRange.value = video.muted ? 0 : volumeValue;
-  }
-  if (event.key === "ArrowLeft") {
-    video.currentTime -= 5;
-  }
-  if (event.key === "ArrowRight") {
-    video.currentTime += 5;
-  }
-  if (event.key === ("f" || "F")) {
-    screenExpand();
-  }
-  if (event.key === "escape") {
-    screenShrink();
-  }
-  event.preventDefault();
-};
+videoCreatedAt.innerText = videoCreatedAt.innerText.substring(0, 16);
 
-window.addEventListener("keydown", shortcutKeys);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
-playBtn.addEventListener("click", handlePlayClick);
-muteBtn.addEventListener("click", handleMuteClick);
+playBtnIcon.addEventListener("click", handlePlayClick);
+backwardBtnIcon.addEventListener("click", handleBackwardClick);
+forwardBtnIcon.addEventListener("click", handleForwardClick);
+muteBtnIcon.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);

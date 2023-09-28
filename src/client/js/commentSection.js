@@ -1,20 +1,35 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const commentsList = document.querySelector(".video__comments ul");
 
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
+
+  const commentUser = document.createElement("a");
+  commentUser.className = "uploaderAvatarBtn";
+
+  // Create an img element
+  const avatarImg = document.createElement("img");
+
+  // Get the avatar URL from the form element and set the src attribute on the img element
+  const avatarUrl = form.getAttribute("data-avatar-url");
+  avatarImg.setAttribute("src", avatarUrl);
+
+  // Append the img element to the commentUser element
+  commentUser.appendChild(avatarImg);
+
   const span = document.createElement("span");
   span.innerText = ` ${text}`;
-  const span2 = document.createElement("span");
-  span2.innerText = "❌";
-  newComment.appendChild(icon);
+
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa-solid fa-trash-can deleteComment";
+
+  newComment.appendChild(commentUser);
   newComment.appendChild(span);
-  newComment.appendChild(span2);
+  newComment.appendChild(deleteIcon);
   videoComments.prepend(newComment);
 };
 
@@ -43,3 +58,25 @@ const handleSubmit = async (event) => {
 if (form) {
   form.addEventListener("submit", handleSubmit);
 }
+
+const handleCommentRemove = async (event) => {
+  console.log("deleting");
+  const deleteCommentBtn = event.target;
+  const comment = deleteCommentBtn.closest("[data-id]");
+  const commentId = comment.dataset.id;
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "DELETE",
+  });
+  if (response.status === 201) {
+    comment.remove();
+  }
+};
+
+const initCommentArea = () => {
+  const commentEach = commentsList.querySelectorAll("li");
+  commentEach.forEach((li) => {
+    const closeBtn = li.querySelector("i");
+    closeBtn.addEventListener("click", handleCommentRemove);
+  });
+};
+initCommentArea();

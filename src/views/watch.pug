@@ -2,53 +2,82 @@ extends page-base
 
 block content
     div.page-content__main
-        div.profile__userTitle.watchVideo__title
-            span.userProfile__title #{video.title}
-        div#videoContainer(data-id=video._id)
-            div.moviefilm-border
-            div.videoContainer__video-screen
-                video(src=video.fileUrl, controls)
-            div.videoControls
-                div.videoControls__play
-                    div.videoControls__time
-                        span#currenTime 00:00
-                        span  / 
-                        span#totalTime 00:00
-                    span#play.videoControls__playBtn
-                        i.fas.fa-backward
-                        i.fa-solid.fa-play
-                        i.fas.fa-forward
-                input(type="range",step="1", value="0", min="0")#timeline.videoControls__timeline
-                div.videoControls__volume
-                    input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
-                    span#mute
-                        i.fas.fa-volume-up
-                div 
-                    span#fullScreen
-                        i.fas.fa-expand
-            div.moviefilm-border
-        div 
-            p=video.description
-            small=video.createdAt
-        div
-            small Uploaded by 
-                a(href=`/users/${video.owner._id}`)=video.owner.name
-        if String(video.owner._id) === String(_id)
-            a(href=`${video.id}/edit`) Edit Video &rarr;
-            br
-            a(href=`${video.id}/delete`) Delete Video &rarr;
-        if loggedIn
-            div.video__add-comments
-                form.video__comment-form#commentForm
-                    textarea(cols="10", rows="5", placehodler="Write nice comment..") 
-                    button Add Comment
-        div.video__comments
-            ul 
-                each comment in video.comments.reverse()
-                    li.video__comment(data-id=comment.id)
-                        i.fas.fa-comment
-                        span  #{comment.text}
-                        span ❌Delete
+        div.watchWrap
+            div.profile__userTitle.watchVideo__title
+                span.userProfile__title #{video.title}
+            div#videoContainer(data-id=video._id)
+                div.moviefilm-border
+                div.videoContainer__video-screen
+                    if video.fileUrl.includes("uploads/videos/")
+                        video(src=`/${video.fileUrl}`, controls:false)
+                    else 
+                        video(src=video.fileUrl, controls:false)
+                    div.videoControls
+                        div.videoControls__play
+                            div.videoControls__time
+                                span#currenTime 00:00
+                                span  / 
+                                span#totalTime 00:00
+                            span#play.videoControls__playBtn
+                                i.fas.fa-backward
+                                i.fa-solid.fa-play
+                                i.fas.fa-forward
+                        input(type="range",step="1", value="0", min="0")#timeline.videoControls__timeline
+                        div.videoControls__volume
+                            input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
+                            span#mute
+                                i.fas.fa-volume-up
+                        div 
+                            span#fullScreen
+                                i.fas.fa-expand
+                div.moviefilm-border
+            div.video-info 
+                div.video-uploader
+                    a(class="uploaderAvatarBtn" href=`/users/${video.owner._id}`)
+                        if video.owner.avatarUrl.includes("/uploads/avatars/")
+                            img(src=`/${video.owner.avatarUrl}`)
+                        else 
+                            img(src=video.owner.avatarUrl)
+                    div.uploaderInfo
+                        a(class="uploader-name" href=`/users/${video.owner._id}`)=video.owner.name
+                        span.uploader-username=`@${video.owner.username}`
+                    if String(video.owner._id) === String(_id)
+                        div.uploaderVideoConfig
+                            div.uploaderVideoEditBtn
+                                a(href=`${video.id}/edit`) Edit Video
+                                i.fa-solid.fa-angles-right
+                            div.uploaderVideoDeleteBtn
+                                a(href=`${video.id}/delete`) Delete Video
+                                i.fa-solid.fa-angles-right
+                div.video-detailDescription
+                    span.video-uploadDate=`📅 ${video.createdAt}`
+                    hr
+                    p.video-description=video.description
+            if loggedIn
+                div.video__add-comments
+                    a(class="uploaderAvatarBtn" href=`/users/${loggedInUser._id}`)
+                        if loggedInUser.avatarUrl.includes("/uploads/avatars/")
+                            img(src=`/${loggedInUser.avatarUrl}`)
+                        else
+                            img(src=loggedInUser.avatarUrl)
+                    form.video__comment-form#commentForm(data-avatar-url=loggedInUser.avatarUrl)
+                        textarea(cols="10", rows="5", placehodler="Write nice comment..") 
+                        button#commentFormBtn 
+                            span Add Comment
+            div.countComments 2 Comments
+            div.video__comments
+                ul 
+                    each comment in video.comments.reverse()
+                        li.video__comment(data-id=comment._id)
+                            span.comment.owner.username
+                            a(class="uploaderAvatarBtn" href=`/users/${comment.owner._id}`)
+                                if comment.owner.avatarUrl.includes("/uploads/avatars/")
+                                    img(src=`/${comment.owner.avatarUrl}`)
+                                else 
+                                    img(src=comment.owner.avatarUrl)
+                            span  #{comment.text}
+                            if comment.owner && (String(comment.owner._id) === String(user._id))
+                                i.fa-solid.fa-trash-can.deleteComment
 block scripts 
     script(src="/static/js/videoPlayer.js")
     if loggedIn
