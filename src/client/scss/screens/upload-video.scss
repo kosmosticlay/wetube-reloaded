@@ -1,3 +1,97 @@
-.page-content__main.watch-video__main {
+.uploadWrap {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.videoRecorder {
+  width: 580px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  #preview {
+    width: 100%;
+  }
+  button {
+    width: 200px;
+    height: 45px;
+    margin-left: 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    background-color: black;
+    box-shadow: 0 0 10px #37c6da;
+    box-sizing: border-box;
+    color: #37c6da;
+    font-weight: bold;
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+#uploadVideoForm {
+  width: 580px;
+  height: 300px;
+  background-color: black;
+  margin-top: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px #37c6da;
+  color: #37c6da;
+  padding: 15px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  .videoFileWrap {
+    width: 100%;
+    display: flex;
+  }
+  .thumbFileWrap {
+    width: 100%;
+    display: flex;
+  }
+  label {
+    display: block;
+    width: 180px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+}
+.uploadInput {
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  background-color: black;
+  border-bottom: 3px solid #888888;
+  transition: border-bottom 0.4s ease;
+  color: #37c6da;
+  &:focus {
+    border-bottom: 3px solid #37c6da;
+  }
+  #video {
+    background-color: black;
+  }
+}
+
+#uploadVideoBtn {
+  width: 100%;
+  height: 40px;
+  border: none;
+  font-size: 16px;
+  color: #37c6da;
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #37c6da;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.4s ease;
+  &:hover {
+    color: red;
+  }
 }

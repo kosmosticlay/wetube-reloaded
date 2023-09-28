@@ -1,6 +1,14 @@
 const scrollDownArrow = document.querySelector(".scrollDown-arrow");
 const videoContentGrid = document.querySelector(".video-grid");
+const pageSidebar = document.querySelector(".page-sidebar");
+const pageSideBarBtn = pageSidebar.querySelector(".fa-bars");
 
+const handleSideBar = () => {
+  const sidebarBtnList = pageSidebar.querySelector("ul");
+  sidebarBtnList.classList.toggle("hide");
+};
+
+pageSideBarBtn.addEventListener("click", handleSideBar);
 /* smooth scroll */
 function smoothScroll(element, target, duration) {
   const startPosition = element.scrollTop;

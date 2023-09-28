@@ -2,21 +2,24 @@ extends page-base
 
 block content
     div.page-content__main
-        div.profile__userTitle.changePassword__title
-            span UPLOAD VIDEO
-        div 
-            video#preview
-            button#actionBtn Start Recording
-        if errorMessage
-            span=errorMessage
-        form(method="POST", enctype="multipart/form-data")
-            label(for="video") Video File
-            input(type="file", accept="video/*", required, id="video", name="video")
-            label(for="thumb") Thumbnail File
-            input(type="file", accept="image/*", required, id="thumb", name="thumb")
-            input(placeholder="Title" required, type="text", name="title", maxlength=80)
-            input(placeholder="Description" required, type="text", name="description", minlength=20)
-            input(placeholder="Hashtags, separated by comma" required, type="text", name="hashtags")
-            input(type="submit", value="Upload video")
+        div.uploadWrap
+            div.profile__userTitle.changePassword__title
+                span UPLOAD VIDEO
+            div.videoRecorder
+                video#preview
+                button#actionBtn Start Recording
+            if errorMessage
+                span=errorMessage
+            form(id="uploadVideoForm" method="POST", enctype="multipart/form-data")
+                div.videoFileWrap
+                    label(for="video") 🎥Video File
+                    input(type="file", accept="video/*", required, id="video", name="video")
+                div.thumbFileWrap
+                    label(for="thumb") 📸Thumbnail File
+                    input(type="file", accept="image/*", required, id="thumb", name="thumb")
+                input(class="uploadInput" placeholder="Title" required, type="text", name="title", maxlength=80)
+                input(class="uploadInput" placeholder="Description" required, type="text", name="description", minlength=20)
+                input(class="uploadInput" placeholder="Hashtags, separated by comma" required, type="text", name="hashtags")
+                input(id="uploadVideoBtn" type="submit", value="Upload video")
 block scripts
     script(src="/static/js/recorder.js")

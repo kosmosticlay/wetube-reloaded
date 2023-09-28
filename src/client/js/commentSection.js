@@ -2,32 +2,24 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const commentsList = document.querySelector(".video__comments ul");
 
-const addComment = (text, id) => {
+const addComment = (text, id, commentowner) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
 
-  const commentUser = document.createElement("a");
-  commentUser.className = "uploaderAvatarBtn";
-
-  const avatarImg = document.createElement("img");
-  const avatarUrl = form.getAttribute("data-avatar-url");
-
-  avatarImg.setAttribute("src", avatarUrl);
-  commentUser.appendChild(avatarImg);
-
-  const span = document.createElement("span");
-  span.innerText = ` ${text}`;
-
+  const commentOwner = document.createElement("span");
+  commentOwner.innerText = `${commentowner}`;
+  commentOwner.className = "commentOwner";
+  const commentContent = document.createElement("span");
+  commentContent.className = "commentContent";
+  commentContent.innerText = ` ${text}`;
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa-solid fa-trash-can deleteComment";
-
-  newComment.appendChild(commentUser);
-  newComment.appendChild(span);
+  newComment.appendChild(commentOwner);
+  newComment.appendChild(commentContent);
   newComment.appendChild(deleteIcon);
   videoComments.prepend(newComment);
-  console.log(avatarUrl);
 };
 
 const handleSubmit = async (event) => {

@@ -25,6 +25,10 @@ html(lang="ko")
                             li
                                 a(href=`/users/${loggedInUser._id}`)  
                                     i.fa-solid.fa-user
+                        if loggedIn
+                            li 
+                                a(href="/videos/upload")
+                                    i.fa-solid.fa-clapperboard
                         li
                             a(href="/search")  
                                 i.fa-solid.fa-magnifying-glass
@@ -58,4 +62,5 @@ html(lang="ko")
                             div.page-content__user-videosList
     script(src="https://kit.fontawesome.com/3e809e2e54.js" crossorigin="anonymous")
     script(src="/static/js/main.js")
+    script(src="/static/js/pageBase.js")
     block scripts

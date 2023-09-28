@@ -69,15 +69,9 @@ block content
                 ul 
                     each comment in video.comments.reverse()
                         li.video__comment(data-id=comment._id)
-                            a(class="uploaderAvatarBtn" href=`/users/${comment._id}`)
-                                if comment.owner && comment.owner.avatarUrl
-                                    if comment.owner.avatarUrl.includes("/uploads/avatars/")
-                                        img(src=`/${comment.owner.avatarUrl}`)
-                                    else 
-                                        img(src=comment.owner.avatarUrl)
-                            span  #{comment.text}
-                            if comment.owner && (String(comment.owner._id) === String(user._id))
-                                i.fa-solid.fa-trash-can.deleteComment
+                            span.commentOwner=`${comment.owner.username} : `
+                            span.commentContent=comment.text
+                            i.fa-solid.fa-trash-can.deleteComment
 block scripts 
     script(src="/static/js/videoPlayer.js")
     if loggedIn
