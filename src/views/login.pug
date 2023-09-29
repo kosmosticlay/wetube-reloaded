@@ -3,17 +3,20 @@ extends base
 block content
     if errorMessage 
         span=errorMessage
-    div.backgroundWrap.loginWrap
-        div.login__title
-            span Login
-        form(id="login-form" method="POST")
-            div.loginFormWrap
-                label(for="login-form__username") Username
-                input(id="login-form__username" name="username", type="text", required, placeholder="Username")
-            div.loginFormWrap
-                label(for="login-form__password") Password
-                input(id="login-form__password" name="password", type="password", required, placeholder="Password") 
-            input(value="Login", type="submit")
-            include partials/social-login
-        div.auth-switch
-            a(href="/join") Create an account now &rarr; 
+    div.backgroundWrap
+        div.loginWrap
+            div.login__title
+                span Login
+            form(id="login-form" method="POST")
+                div.loginFormWrap
+                    label(for="login-form__username") Username
+                    input(id="login-form__username", name="username", type="text", required, placeholder="Username")
+                div.loginFormWrap
+                    label(for="login-form__password") Password
+                    input(id="login-form__password", name="password", type="password", required, placeholder="Password") 
+                input(id="login-form__loginBtn", value="Login", type="submit")
+                include partials/social-login
+            div.auth-switch
+                a(href="/join")
+                    span Create an account now
+                    i.fa-solid.fa-angles-right
