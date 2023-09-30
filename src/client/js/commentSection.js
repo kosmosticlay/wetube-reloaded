@@ -2,12 +2,18 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 const commentsList = document.querySelector(".video__comments ul");
 
+const updateCommentCount = () => {
+  const commentCount = document.querySelector(".countComments");
+  const commentsList = document.querySelector(".video__comments ul");
+  const numberOfComments = commentsList.children.length;
+  commentCount.innerText = `${numberOfComments} Comments`;
+};
+
 const addComment = (text, id, commentowner) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
-
   const commentOwner = document.createElement("span");
   commentOwner.innerText = `${commentowner}`;
   commentOwner.className = "commentOwner";
@@ -16,10 +22,12 @@ const addComment = (text, id, commentowner) => {
   commentContent.innerText = ` ${text}`;
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa-solid fa-trash-can deleteComment";
+  deleteIcon.addEventListener("click", handleCommentRemove);
   newComment.appendChild(commentOwner);
   newComment.appendChild(commentContent);
   newComment.appendChild(deleteIcon);
   videoComments.prepend(newComment);
+  updateCommentCount();
 };
 
 const handleSubmit = async (event) => {
@@ -58,6 +66,7 @@ const handleCommentRemove = async (event) => {
   });
   if (response.status === 201) {
     comment.remove();
+    updateCommentCount();
   }
 };
 
@@ -69,3 +78,6 @@ const initCommentArea = () => {
   });
 };
 initCommentArea();
+document.addEventListener("DOMContentLoaded", (event) => {
+  updateCommentCount();
+});

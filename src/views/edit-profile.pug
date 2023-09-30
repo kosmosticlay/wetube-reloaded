@@ -17,11 +17,19 @@ block content
                 i.fa-solid.fa-pen
         form(method="POST", enctype="multipart/form-data").edit-profile__form.userInfo__form
             input(type="file", id="avatar", name="avatar", accept="image/*")
-            input(placeholder="Name", name="name", type="text", required, value=loggedInUser.name)
-            input(placeholder="Email", name="email", type="email", required, value=loggedInUser.email)
-            input(placeholder="Username", name="username", type="text", required, value=loggedInUser.username)
-            input(placeholder="Location", name="location", type="text", required, value=loggedInUser.location)
-            input(type="submit", value="Update Profile")
+            div.editProfileFormWrap
+                label(for="editProfile-form__name") Name
+                input(id="editProfile-form__name", placeholder="Name", name="name", type="text", required, value=loggedInUser.name)
+            div.editProfileFormWrap
+                label(for="editProfile-form__email") Email
+                input(id="editProfile-form__email", placeholder="Email", name="email", type="email", required, value=loggedInUser.email)
+            div.editProfileFormWrap
+                label(for="editProfile-form__username") Username
+                input(id="editProfile-form__username", placeholder="Username", name="username", type="text", required, value=loggedInUser.username)
+            div.editProfileFormWrap
+                label(for="editProfile-form__location") Location
+                input(id="editProfile-form__location", placeholder="Location", name="location", type="text", required, value=loggedInUser.location)
+            input(id="editProfile-form__updateBtn", type="submit", value="Update Profile")
             if !loggedInUser.socialOnly
                 a(href="change-password" title="Click if you need to change your password!😉").editPasswordBtn
                     i.fa-solid.fa-lock

@@ -58,9 +58,9 @@ export const postEdit = async (req, res) => {
     user: { _id },
   } = req.session;
   const { title, description, hashtags } = req.body;
-  const video = await Video.exists({ _id: id });
+  const videoExists = await Video.exists({ _id: id });
   // object id가 req.params.id와 같은 경우를 검색 후 true/false값 반환
-  if (!video) {
+  if (!videoExists) {
     return res.render("404", { pageTitle: "Video not found." });
   }
   // video.title = title;
@@ -69,15 +69,20 @@ export const postEdit = async (req, res) => {
   //   .split(",")
   //   .map((word) => (word.startsWith("#") ? word : `#${word}`));
   // await video.save();
+  const video = await Video.findById(id);
   if (String(video.owner) !== String(_id)) {
     req.flash("error", "You are not the owner of the video");
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndUpdate(id, {
-    title,
-    description,
-    hashtags: Video.formatHashtags(hashtags),
-  });
+  const updatedVideo = await Video.findByIdAndUpdate(
+    id,
+    { title, description, hashtags: Video.formatHashtags(hashtags) },
+    { new: true }
+  );
+  if (!updatedVideo) {
+    req.flash("error", "Video update failed");
+    return res.redirect(`/videos/${id}`);
+  }
   req.flash("success", "Changes saved");
   return res.redirect(`/videos/${id}`);
 };

@@ -21,7 +21,7 @@ block content
                 span.big__frame 😵
             span @#{user.username}
         div.page-content__user-videos
-            if loggedIn
+            if loggedIn && String(loggedInUser._id) === String(user._id)
                 span My videos
             else
                 span #{user.name}'s videos
@@ -32,5 +32,5 @@ block content
                     span.empty__message No videos found
 block scripts 
     script(src="/static/js/videoGrid.js")
-    script(src="/static/js/pageBase.js")
+
     

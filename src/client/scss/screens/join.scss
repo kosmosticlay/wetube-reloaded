@@ -81,12 +81,12 @@
       border: none;
       outline: none;
       background-color: black;
-      border-bottom: 3px solid #888888;
+      border-bottom: 2px solid #888888;
       transition: border-bottom 0.4s ease;
       color: #888888;
       &:focus {
         color: #37c6da;
-        border-bottom: 3px solid #37c6da;
+        border-bottom: 2px solid #37c6da;
       }
       &:-webkit-autofill {
         -webkit-box-shadow: 0 0 0 1000px black inset;
