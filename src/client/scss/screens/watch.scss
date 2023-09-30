@@ -57,10 +57,15 @@
     justify-content: space-between;
     align-items: center;
     position: absolute;
-    bottom: 1%;
+    bottom: 3%;
     padding: 0 15px;
     box-sizing: border-box;
     font-size: 15px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    &.showing {
+      opacity: 1;
+    }
     i {
       cursor: pointer;
       &:hover {

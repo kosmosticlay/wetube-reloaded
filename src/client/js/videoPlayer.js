@@ -86,8 +86,6 @@ const handleTimelineChange = (event) => {
 
 const handleFullscreen = () => {
   const fullscreen = document.fullscreenElement;
-  const controlsIcon = videoControls.querySelectorAll("i");
-  console.log(Boolean(fullscreen));
   if (fullscreen) {
     document.exitFullscreen();
     fullScreenIcon.classList = "fas fa-expand";
@@ -102,6 +100,23 @@ const handleFullscreen = () => {
     videoControls.style.height = "60px";
     videoControls.style.padding = "0 25px";
     videoControls.style.fontSize = "23px";
+  }
+};
+
+const handleFullscreenChange = () => {
+  const fullscreen = document.fullscreenElement;
+  if (fullscreen) {
+    fullScreenIcon.classList = "fas fa-compress";
+    videoControls.style.width = "70%";
+    videoControls.style.height = "60px";
+    videoControls.style.padding = "0 25px";
+    videoControls.style.fontSize = "23px";
+  } else {
+    fullScreenIcon.classList = "fas fa-expand";
+    videoControls.style.width = "90%";
+    videoControls.style.height = "10%";
+    videoControls.style.padding = "0 15px";
+    videoControls.style.fontSize = "15px";
   }
 };
 
@@ -121,7 +136,7 @@ const handleMouseMove = () => {
 };
 
 const handleMouseLeave = () => {
-  controlsTimeout = setTimeout(hideControls, 3000);
+  controlsTimeout = setTimeout(hideControls, 2000);
 };
 
 const handleEnded = () => {
@@ -133,10 +148,12 @@ const handleEnded = () => {
 };
 
 videoCreatedAt.innerText = videoCreatedAt.innerText.substring(0, 18);
-
-video.addEventListener("loadedmetadata", handleLoadedMetadata);
+video.readyState > 0
+  ? handleLoadedMetadata()
+  : video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("ended", handleEnded);
+video.addEventListener("click", handlePlayClick);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 playBtnIcon.addEventListener("click", handlePlayClick);
@@ -146,3 +163,4 @@ muteBtnIcon.addEventListener("click", handleMuteClick);
 volumeRange.addEventListener("input", handleVolumeChange);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
+document.addEventListener("fullscreenchange", handleFullscreenChange);

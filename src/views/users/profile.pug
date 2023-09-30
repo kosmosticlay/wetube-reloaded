@@ -16,7 +16,8 @@ block content
                     img(src=`/${loggedInUser.avatarUrl}`).profile__frame
                 else if loggedInUser.avatarUrl
                     img(src=`${loggedInUser.avatarUrl}`).profile__frame
-                span.no-avatarUrl.profile-avatarUrl 😵
+                else
+                    span.no-avatarUrl.profile-avatarUrl 😵
             span @#{user.username}
         div.page-content__user-videos
             if loggedIn
