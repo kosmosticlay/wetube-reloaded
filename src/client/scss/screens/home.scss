@@ -116,16 +116,21 @@ main {
   }
 }
 
-.headerBtn__header-avatar img {
+.headerBtn__header-avatar {
   width: 50px;
   height: 50px;
   border-radius: 25px;
   margin-left: 20px;
   border: 2px solid #37c6da;
-}
-.no-avatarUrl {
-  font-size: 35px;
-  margin-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 /* 사이드바 */

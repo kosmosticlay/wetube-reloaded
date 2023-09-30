@@ -34,10 +34,13 @@ block content
             div.video-info 
                 div.video-uploader
                     a(class="uploaderAvatarBtn" href=`/users/${video.owner._id}`)
-                        if video.owner.avatarUrl.includes("/uploads/avatars/")
-                            img(src=`/${video.owner.avatarUrl}`)
-                        else 
-                            img(src=video.owner.avatarUrl)
+                        if video.owner.avatarUrl 
+                            if video.owner.avatarUrl.includes("/uploads/avatars/")
+                                img(src=`/${video.owner.avatarUrl}`)
+                            else    
+                                img(src=video.owner.avatarUrl)
+                        else
+                            span 😵
                     div.uploaderInfo
                         a(class="uploader-name" href=`/users/${video.owner._id}`)=video.owner.name
                         span.uploader-username=`@${video.owner.username}`
@@ -56,10 +59,13 @@ block content
             if loggedIn
                 div.video__add-comments
                     a(class="uploaderAvatarBtn" href=`/users/${loggedInUser._id}`)
-                        if loggedInUser.avatarUrl.includes("/uploads/avatars/")
-                            img(src=`/${loggedInUser.avatarUrl}`)
+                        if loggedInUser.avatarUrl 
+                            if loggedInUser.avatarUrl.includes("/uploads/avatars/")
+                                img(src=`/${loggedInUser.avatarUrl}`)
+                            else
+                                img(src=loggedInUser.avatarUrl)
                         else
-                            img(src=loggedInUser.avatarUrl)
+                            span 😵
                     form.video__comment-form#commentForm(data-avatar-url=loggedInUser.avatarUrl)
                         textarea(cols="10", rows="5", placehodler="Write nice comment..") 
                         button#commentFormBtn 

@@ -6,9 +6,13 @@ block content
             div.profile__userTitle
                 span Edit profile
             if loggedInUser.avatarUrl
-                img(src="/" + loggedInUser.avatarUrl).profile__frame
+                div.big__frame
+                    if loggedInUser.avatarUrl.includes("uploads/avatars/")
+                        img(src=`/${loggedInUser.avatarUrl}`).profile__frame
+                    else if loggedInUser.avatarUrl
+                        img(src=`${loggedInUser.avatarUrl}`).profile__frame
             else
-                span.no-avatarUrl.profile-avatarUrl 😵
+                span.big__frame 😵
             a(title="Click if you need to change your avatar!😉").editProfileBtn
                 i.fa-solid.fa-pen
         form(method="POST", enctype="multipart/form-data").edit-profile__form.userInfo__form

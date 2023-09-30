@@ -11,13 +11,14 @@ block content
                         i.fa-solid.fa-pen
             else
                 div.profile__userTitle #{user.name}'s Profile
-            if loggedInUser
-                if loggedInUser.avatarUrl && loggedInUser.avatarUrl.includes("uploads/avatars/")
-                    img(src=`/${loggedInUser.avatarUrl}`).profile__frame
-                else if loggedInUser.avatarUrl
-                    img(src=`${loggedInUser.avatarUrl}`).profile__frame
-                else
-                    span.no-avatarUrl.profile-avatarUrl 😵
+            if user.avatarUrl
+                div.big__frame
+                    if user.avatarUrl && user.avatarUrl.includes("uploads/avatars/")
+                        img(src=`/${user.avatarUrl}`).profile__frame
+                    else if user.avatarUrl
+                        img(src=`${user.avatarUrl}`).profile__frame
+            else
+                span.big__frame 😵
             span @#{user.username}
         div.page-content__user-videos
             if loggedIn
