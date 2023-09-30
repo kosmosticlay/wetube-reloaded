@@ -28,10 +28,12 @@ block content
                         i.fa-solid.fa-angles-right
                     a(class="headerBtn__header-avatar" href=`/users/${loggedInUser._id}`)
                         if loggedInUser
-                            if loggedInUser.avatarUrl.includes("uploads/avatars/")
+                            if loggedInUser.avatarUrl && loggedInUser.avatarUrl.includes("uploads/avatars/")
                                 img(src=`/${loggedInUser.avatarUrl}`)
                             else if loggedInUser.avatarUrl
                                 img(src=`${loggedInUser.avatarUrl}`)
+                            else 
+                                span.no-avatarUrl 😵
             else
                 div.headerBtnList
                     div.headerBtn.header-login

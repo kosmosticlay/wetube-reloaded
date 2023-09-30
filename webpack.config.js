@@ -14,6 +14,7 @@ module.exports = {
     search: BASE_JS + "search.js",
     videoGrid: BASE_JS + "videoGrid.js",
     pageBase: BASE_JS + "pageBase.js",
+    loginAnimation: BASE_JS + "loginAnimation.js",
   },
   stats: {
     errorDetails: true,

@@ -1,3 +1,4 @@
+/* responsive background */
 /* 1920*1080 */
 @media (min-width: 1440.99px) {
   .backgroundWrap {
@@ -19,18 +20,236 @@
   }
 }
 
+/* login graphic */
+@keyframes showBlackSky {
+  from {
+    transform: translateY(-150vh);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+.totalWrap {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.5s ease;
+}
+
+.bodyWrap {
+  width: 100%;
+  height: 200vh;
+  transform: translateY(-150vh);
+}
+
+.bodyWrap.moveUp {
+  animation: showBlackSky 3s forwards;
+}
+
+.animationWrap {
+  width: 100%;
+  height: 150vh;
+  padding-top: 50px;
+  box-sizing: border-box;
+  background: linear-gradient(to bottom, black 0%, black 50%, #172054 100%);
+}
+// animation 설정들
+@keyframes toastLeftGlass {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(12deg);
+  }
+}
+
+@keyframes toastRightGlass {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes bubbleUp1 {
+  0% {
+    transform: translate(-72%, -40%) translateY(40px);
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-72%, -40%) translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleUp2 {
+  0% {
+    transform: translate(-32%, -47%) translateY(10px);
+  }
+  20% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-32%, -47%) translateY(-20px);
+    opacity: 0;
+  }
+}
+
+@keyframes revealSlogan {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animationWrap__effect {
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .glassIllust {
+    width: 230px;
+    height: 200px;
+    margin-bottom: 20px;
+    position: relative;
+    .glassIllust__effect {
+      width: 100%;
+      height: 70px;
+      background-color: black;
+      background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/8e5bdf9f-3fcd-44ef-9e5f-9bb5871da1c6/image.png);
+      background-position: center;
+      background-size: 60%;
+      background-repeat: no-repeat;
+      position: absolute;
+      overflow: hidden;
+      top: 20px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      .pink-bubble1 {
+        width: 30px;
+        height: 30px;
+        background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/7863163c-620b-43a6-a537-012a7ad80850/image.png);
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 72%;
+        left: 40%;
+        transform: translate(-72%, -40%) translateY(40px);
+        opacity: 0;
+        transition: opacity 0.1s ease;
+      }
+      .pink-bubble1.bubbleUp1 {
+        animation: bubbleUp1 1s forwards;
+      }
+      .pink-bubble2 {
+        width: 30px;
+        height: 30px;
+        background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/7863163c-620b-43a6-a537-012a7ad80850/image.png);
+        background-position: center;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 32%;
+        left: 47%;
+        transform: translate(-32%, -47%) translateY(10px);
+        opacity: 0;
+        transition: opacity 0.1s ease-out;
+      }
+      .pink-bubble2.bubbleUp2 {
+        animation: bubbleUp2 1s forwards;
+      }
+    }
+    .glassIllust__glassWrap {
+      width: 100%;
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      margin-top: 70px;
+      .glass {
+        width: 38%;
+        height: 100%;
+        box-sizing: border-box;
+        background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/69ff6257-25de-437e-b8fd-4eb7b96f59b5/image.png);
+        background-position: center;
+        background-size: 120%;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+      .glass.left-glass {
+        background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/6f4a415f-564e-4eb1-93d5-2a7edab54223/image.png);
+        background-position: center;
+        background-size: 70%;
+        background-repeat: no-repeat;
+      }
+      .glass.right-glass {
+        background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/fdd42d87-6618-421c-a7ec-3e4e78f182c5/image.png);
+        background-position: center;
+        background-size: 70%;
+        background-repeat: no-repeat;
+      }
+      .glass.leftGlassToast {
+        animation: toastLeftGlass 0.6s forwards;
+      }
+      .glass.rightGlassToast {
+        animation: toastRightGlass 0.6s forwards;
+      }
+    }
+  }
+  .website__title {
+    width: 100%;
+    font-family: "Lovelo", sans-serif;
+    font-size: 90px;
+    font-weight: 700;
+    opacity: 0;
+    color: red;
+    transition: opacity 1s ease;
+    text-align: center;
+  }
+  .website__slogan {
+    width: 550px;
+    height: 100px;
+    background-color: black;
+    background-image: url(https://velog.velcdn.com/images/kosmosticlay/post/8b0b2656-805d-40dd-81bc-ef2ddf185f4c/image.png);
+    background-position: center;
+    background-size: 220%;
+    background-repeat: no-repeat;
+    opacity: 0;
+  }
+  .website__slogan.showSlogan {
+    animation: revealSlogan 1s forwards;
+    opacity: 1;
+  }
+}
+
+//
 .backgroundWrap {
   width: 100%;
   height: 100vh;
   background-position: center calc(100% + 70px);
-  background-repeat: repeat;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .loginWrap {
   width: 100%;
-  height: 750px;
+  height: 100%;
   position: relative;
   padding-top: 35px;
   box-sizing: border-box;
