@@ -15,6 +15,7 @@ module.exports = {
     videoGrid: BASE_JS + "videoGrid.js",
     pageBase: BASE_JS + "pageBase.js",
     loginAnimation: BASE_JS + "loginAnimation.js",
+    scroll: BASE_JS + "scroll.js",
   },
   stats: {
     errorDetails: true,

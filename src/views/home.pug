@@ -23,9 +23,9 @@ block content
                 span r
             if loggedIn
                 div.headerBtnList
-                    a(class="headerBtn header-logout" href="/users/logout")
-                        span Log out
-                        i.fa-solid.fa-angles-right
+                    form(method="GET" action="/search" id="quicksearch")
+                        input(placeholder="Quick Search", name="keyword", type="text", required, maxlength="30")
+                        button.fa-solid.fa-magnifying-glass(type="submit")
                     a(class="headerBtn__header-avatar" href=`/users/${loggedInUser._id}`)
                         if loggedInUser
                             if loggedInUser.avatarUrl
@@ -37,12 +37,6 @@ block content
                                 span 😵
             else
                 div.headerBtnList
-                    div.headerBtn.header-login
-                        span Log In 
-                        i.fa-solid.fa-angles-right
-                    div.headerBtn.header-join
-                        span Join
-                        i.fa-solid.fa-angles-right
         div.contentWrap
             div.home-sideBar
                 div.home-sideBar__banner
@@ -57,17 +51,24 @@ block content
                             a(href="/videos/upload") UPLOAD VIDEO
                     li.menuBtn
                         a(href="/search") SEARCH
-                    if loggedIn
-                        a(class="home-sideBar__logoutBtn" href="/users/logout") 
-                            i.fa-solid.fa-arrow-right-from-bracket
-                            span Log out
+                    div.bottomBtnList
+                        if (!loggedIn)
+                            a(class="bottomBtnList__btn" href="/login")
+                                span Log In  
+                                i.fa-solid.fa-angles-right
+                            a(class="bottomBtnList__btn" href="/join")
+                                span Join
+                                i.fa-solid.fa-angles-right
+                        if loggedIn
+                            a(class="bottomBtnList__btn" href="/users/logout") 
+                                i.fa-solid.fa-arrow-right-from-bracket
+                                span Log out
             div.video-grid.home__video-grid
                 each video in videos
                     +video(video)
                 else
                     span.empty__message No videos found
-            i.fa-solid.fa-chevron-down.scrollDown-arrow
 block scripts 
     script(src="/static/js/home.js")
-    script(src="/static/js/pageBase.js")
+    script(src="/static/js/scroll.js")
     script(src="/static/js/videoGrid.js")

@@ -4,7 +4,7 @@ mixin video(video)
         div.video-mixin__data
             span.video-mixin__title=video.title
             div.video-mixin__meta
-                span #{video.owner.name} • 
-                span #{video.meta.views} 회
-            div.video-mixin__createdAt
-                span #{video.createdAt}
+                span #{video.owner.name}
+            div.video-mixin__info
+                span.video-mixin__view #{video.meta.views} 회 / 
+                span.video-mixin__createdAt #{video.createdAt}

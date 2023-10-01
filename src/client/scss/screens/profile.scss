@@ -113,6 +113,9 @@
   justify-content: flex-start;
   align-items: center;
   color: #37c6da;
+  .profile__username {
+    font-size: 20px;
+  }
 }
 
 .profile__userTitle {
@@ -130,6 +133,9 @@
   .fa-pen {
     font-size: 20px;
     cursor: pointer;
+    &:hover {
+      color: red;
+    }
   }
 }
 
@@ -165,7 +171,6 @@
 .page-content__user-videos {
   width: 80%;
   height: calc(100vh - 370px);
-  margin-top: 30px;
 }
 
 .page-content__user-videos > span {
@@ -178,7 +183,7 @@
 
 .video-grid.profile__video-grid {
   width: 70%;
-  height: 220px;
-  top: 450px;
+  height: 32%;
+  top: 430px;
   overflow: scroll;
 }
