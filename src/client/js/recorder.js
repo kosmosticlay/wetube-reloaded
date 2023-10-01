@@ -21,36 +21,16 @@ const downloadFile = (fileUrl, fileName) => {
   a.click();
 };
 
-const ffmpeg = new FFmpeg({ log: true });
-let loaded = false;
-
-const load = async () => {
-  const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.2/dist/umd";
-  ffmpeg.on("log", ({ message }) => {
-    console.log(message);
-  });
-
-  await ffmpeg.load({
-    coreURL: `${baseURL}/ffmpeg-core.js`,
-    wasmURL: `${baseURL}/ffmpeg-core.wasm`,
-  });
-
-  loaded = true;
-};
+const ffmpeg = new FFmpeg();
 
 const handleDownload = async () => {
   actionBtn.removeEventListener("click", handleDownload);
   actionBtn.innerText = "Transcoding...";
   actionBtn.disabled = true;
-
-  if (!loaded) {
-    console.log("FFmpeg is not loaded yet, loading now...");
-    await load();
-  }
-
+  const ffmpeg = new FFmpeg();
+  await ffmpeg.load();
   await ffmpeg.writeFile(files.input, await fetchFile(videoFile));
   await ffmpeg.exec(["-i", files.input, "-r", "60", files.output]);
-  //
   await ffmpeg.exec([
     "-i",
     files.input,
@@ -74,13 +54,6 @@ const handleDownload = async () => {
   await ffmpeg.deleteFile(files.input);
   await ffmpeg.deleteFile(files.output);
   await ffmpeg.deleteFile(files.thumb);
-
-  // try {
-  //   await ffmpeg.readFile(files.input);
-  //   console.log(`${files.input} exists`);
-  // } catch (e) {
-  //   console.log(`${files.input} does not exist`);
-  // }
 
   URL.revokeObjectURL(mp4Url);
   URL.revokeObjectURL(thumbUrl);

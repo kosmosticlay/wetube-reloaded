@@ -33,11 +33,11 @@ const handlePlayClick = () => {
 };
 
 const handleBackwardClick = () => {
-  video.currentTime -= 5;
+  video.currentTime -= 2;
 };
 
 const handleForwardClick = () => {
-  video.currentTime += 5;
+  video.currentTime += 2;
 };
 
 const handleMuteClick = () => {
