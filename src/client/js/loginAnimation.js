@@ -26,8 +26,10 @@ const handleLoginAnimation = (event) => {
   setTimeout(() => {
     leftGlass.classList.add("leftGlassToast");
     rightGlass.classList.add("rightGlassToast");
-    yellowbubble.style.opacity = "1";
   }, 2700);
+  setTimeout(() => {
+    yellowbubble.style.opacity = "1";
+  }, 2900);
   setTimeout(() => {
     slogan.classList.add("showSlogan");
   }, 3500);

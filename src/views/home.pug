@@ -21,11 +21,11 @@ block content
                 span B
                 span a
                 span r
-            if loggedIn
-                div.headerBtnList
-                    form(method="GET" action="/search" id="quicksearch")
-                        input(placeholder="Quick Search", name="keyword", type="text", required, maxlength="30")
-                        button.fa-solid.fa-magnifying-glass(type="submit")
+            div.headerBtnList
+                form(method="GET" action="/search" id="quicksearch")
+                    input(placeholder="Quick Search", name="keyword", type="text", required, maxlength="30")
+                    button.fa-solid.fa-magnifying-glass(type="submit")
+                if loggedIn
                     a(class="headerBtn__header-avatar" href=`/users/${loggedInUser._id}`)
                         if loggedInUser
                             if loggedInUser.avatarUrl
@@ -35,8 +35,6 @@ block content
                                     img(src=`${loggedInUser.avatarUrl}`)
                             else 
                                 span 😵
-            else
-                div.headerBtnList
         div.contentWrap
             div.home-sideBar
                 div.home-sideBar__banner

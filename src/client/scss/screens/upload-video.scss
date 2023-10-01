@@ -68,11 +68,13 @@
   border: none;
   outline: none;
   background-color: black;
-  border-bottom: 3px solid #888888;
+  border-bottom: 2px solid #888888;
   transition: border-bottom 0.4s ease;
   color: #37c6da;
+  font-size: 18px;
+  box-sizing: border-box;
   &:focus {
-    border-bottom: 3px solid #37c6da;
+    border-bottom: 2px solid #37c6da;
   }
   #video {
     background-color: black;
